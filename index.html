@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Sign Up</title>
+  
+  <!-- TailwindCSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+  <!-- Container -->
+  <div id="auth-container" class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full transition-all duration-300 transform scale-100">
+    <h1 id="main-title" class="text-3xl font-bold text-center text-gray-800 mb-4">Welcome</h1>
+    <p id="main-subtitle" class="text-center text-gray-500 mb-8">Sign in to your account to continue.</p>
+
+    <!-- Login Form -->
+    <div id="login-form" class="fade-in">
+      <form id="email-login-form" class="space-y-4">
+        <div>
+          <label for="login-email" class="block text-sm font-medium text-gray-700">Email address</label>
+          <input type="email" id="login-email" name="email" required 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+        </div>
+        <div>
+          <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="login-password" name="password" required 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+        </div>
+        <button type="submit" 
+          class="w-full bg-blue-600 text-white rounded-full py-3 font-semibold hover:bg-blue-700 transition-colors duration-200">
+          Sign In
+        </button>
+      </form>
+
+      <div class="relative flex py-5 items-center">
+        <div class="flex-grow border-t border-gray-300"></div>
+        <span class="flex-shrink mx-4 text-gray-400">OR</span>
+        <div class="flex-grow border-t border-gray-300"></div>
+      </div>
+
+      <!-- Google Sign-in -->
+      <button type="button" id="google-signin-btn" 
+        class="w-full flex items-center justify-center space-x-2 border border-gray-300 rounded-full px-4 py-3 text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200">
+        <svg class="w-5 h-5" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.61 20.082H42.4V20H24v8h11.46c-1.178 3.522-4.015 6.467-7.85 7.422v5.778h6.248c3.67-3.41 6.273-7.7 7.74-12.822h-6.248V20.082z"></path>
+          <path fill="#4285F4" d="M24 16c4.095 0 7.398 1.488 9.07 4.145l6.775-6.613C36.195 9.066 30.63 6 24 6c-8.868 0-16.143 6.307-17.514 14.897l6.81 5.234C14.777 22.392 18.995 20 24 20c2.72 0 5.16.892 7.18 2.458l5.242-5.112C33.91 18.23 29.2 16 24 16z"></path>
+          <path fill="#EA4335" d="M6.486 20.897C6.01 22.254 5.76 23.63 5.76 25c0 1.37.25 2.746.726 4.103l6.81-5.234C13.43 22.392 13.996 20.998 14.777 19.605L6.486 13.435z"></path>
+          <path fill="#34A853" d="M24 44c5.11 0 9.84-1.92 13.39-5.155l-6.775-6.613c-1.672 2.657-4.975 4.145-9.07 4.145-5.005 0-9.223-2.392-12.015-6.305l-6.81 5.234C7.857 37.693 15.132 44 24 44z"></path>
+        </svg>
+        <span>Sign in with Google</span>
+      </button>
+
+      <p class="text-center text-sm text-gray-500 mt-4">
+        Don’t have an account? 
+        <a href="#" id="show-signup" class="text-blue-600 hover:text-blue-700 font-semibold">Sign Up</a>
+      </p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="fade-in hidden">
+      <form id="email-signup-form" class="space-y-4">
+        <div>
+          <label for="signup-email" class="block text-sm font-medium text-gray-700">Email address</label>
+          <input type="email" id="signup-email" name="email" required 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+        </div>
+        <div>
+          <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" id="signup-password" name="password" required 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border">
+        </div>
+        <button type="submit" 
+          class="w-full bg-blue-600 text-white rounded-full py-3 font-semibold hover:bg-blue-700 transition-colors duration-200">
+          Sign Up
+        </button>
+      </form>
+      <p class="text-center text-sm text-gray-500 mt-4">
+        Already have an account? 
+        <a href="#" id="show-login" class="text-blue-600 hover:text-blue-700 font-semibold">Sign In</a>
+      </p>
+    </div>
+
+    <!-- Status Messages -->
+    <div id="status-message" class="mt-6 text-center text-sm font-medium"></div>
+  </div>
+
+  <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { 
+      getAuth, signInWithPopup, GoogleAuthProvider, 
+      onAuthStateChanged, createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      setPersistence, browserLocalPersistence
+    } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDKKZ2KgSgV53W_cubnkaIo1qmNRGGrZUU",
+      authDomain: "pr-18-aa6d4.firebaseapp.com",
+      databaseURL: "https://pr-18-aa6d4-default-rtdb.firebaseio.com",
+      projectId: "pr-18-aa6d4",
+      storageBucket: "pr-18-aa6d4.firebasestorage.app",
+      messagingSenderId: "858386052531",
+      appId: "1:858386052531:web:ce61e6c7718ab8b47b47c6",
+      measurementId: "G-CBZ56WEQE6"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // UI elements
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const showSignupLink = document.getElementById('show-signup');
+    const showLoginLink = document.getElementById('show-login');
+    const emailLoginForm = document.getElementById('email-login-form');
+    const emailSignupForm = document.getElementById('email-signup-form');
+    const googleSignInBtn = document.getElementById('google-signin-btn');
+    const statusMessage = document.getElementById('status-message');
+    const mainTitle = document.getElementById('main-title');
+    const mainSubtitle = document.getElementById('main-subtitle');
+
+    // Switch views
+    function showView(view) {
+      if (view === 'login') {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+        mainTitle.textContent = "Welcome";
+        mainSubtitle.textContent = "Sign in to your account to continue.";
+      } else {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+        mainTitle.textContent = "Create an Account";
+        mainSubtitle.textContent = "Join us to get started!";
+      }
+      statusMessage.textContent = '';
+    }
+
+    // Event Listeners
+    showSignupLink.addEventListener('click', (e) => { e.preventDefault(); showView('signup'); });
+    showLoginLink.addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
+
+    googleSignInBtn.addEventListener('click', async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        statusMessage.textContent = "Redirecting to Google...";
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.error("Google Sign-In Error:", error);
+        statusMessage.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    emailLoginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      try {
+        statusMessage.textContent = "Signing in...";
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.error("Email Login Error:", error);
+        statusMessage.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    emailSignupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const password = e.target.password.value;
+      try {
+        statusMessage.textContent = "Creating account...";
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        console.error("Email Sign Up Error:", error);
+        statusMessage.textContent = `Error: ${error.message}`;
+      }
+    });
+
+    // Auth State Listener
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (!window.location.pathname.endsWith('dashboard.html')) {
+          window.location.href = 'dashboard.html';
+        }
+      } else {
+        showView('login');
+      }
+    });
+  </script>
+</body>
+</html>

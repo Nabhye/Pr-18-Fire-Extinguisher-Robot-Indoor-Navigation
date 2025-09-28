@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+            <div class="flex items-center space-x-4">
+                <p id="welcome-message" class="text-lg font-medium text-blue-600">Welcome, User!</p>
+                <button id="sign-out-btn" class="bg-red-500 text-white rounded-full py-2 px-4 text-sm font-semibold hover:bg-red-600 transition">
+                    Sign Out
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+     <div class ="flex justify-center mt-6">
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/3069588/charts/1?bgcolor=%23ffffff&color=%23d62020&days=10&dynamic=true&results=60&sum=10&title=Ultrasonic+Sensor&type=line&xaxis=Time&yaxis=Distance"></iframe>
+     </div>
+
+      <main class="max-w-7xl mx-auto p-6">
+        <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Welcome dashboard!</h2>
+            <p class="text-gray-500">You are successfully logged in</p>
+        </div>
+    </main>
+    <!-- Firebase & Auth Logic -->
+    <script type="module">
+        // --- Firebase SDK Imports ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+        // Firestore imports are removed since they are no longer needed for this page
+
+        // --- Firebase Config ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKKZ2KgSgV53W_cubnkaIo1qmNRGGrZUU",
+            authDomain: "pr-18-aa6d4.firebaseapp.com",
+            databaseURL: "https://pr-18-aa6d4-default-rtdb.firebaseio.com",
+            projectId: "pr-18-aa6d4",
+            storageBucket: "pr-18-aa6d4.firebasestorage.app",
+            messagingSenderId: "858386052531",
+            appId: "1:858386052531:web:ce61e6c7718ab8b47b47c6",
+            measurementId: "G-CBZ56WEQE6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // --- UI Elements ---
+        const welcomeMessage = document.getElementById('welcome-message');
+        const signOutBtn = document.getElementById('sign-out-btn');
+
+        // --- Sign Out ---
+        signOutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // --- Auth State Listener ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // USER IS SIGNED IN: Display welcome name
+                const name = user.displayName || user.email.split('@')[0] || 'User';
+                welcomeMessage.textContent = `Welcome, ${name}!`;
+            } else {
+                // USER IS SIGNED OUT: Redirect to login page
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
